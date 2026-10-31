@@ -1,0 +1,35 @@
+{
+  "name": "Agent Framlin #55",
+  "description": "Agent Framlin \u2014 a tiny pixel agent, yellow-themed, simple and always ready for duty. Mint via AI Agent.",
+  "image": "https://framlin.xyz/collection-images/55.png",
+  "attributes": [
+    {
+      "trait_type": "Shape",
+      "value": "No Antenna Ears"
+    },
+    {
+      "trait_type": "Phase",
+      "value": "Phase 1 - Free Mint"
+    },
+    {
+      "trait_type": "Price",
+      "value": "0 BNB (free mint)"
+    },
+    {
+      "trait_type": "Body",
+      "value": "#F2B705"
+    },
+    {
+      "trait_type": "Visor",
+      "value": "#FFFFFF"
+    },
+    {
+      "trait_type": "Antenna",
+      "value": "None"
+    },
+    {
+      "trait_type": "Background",
+      "value": "Gold"
+    }
+  ]
+}
