@@ -1,0 +1,700 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" href="data:," />
+    <title>Agent Framlin — NFT Mint</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+    <style>
+      :root{
+        --yellow:#FFD400;
+        --yellow-soft:#FFEC8B;
+        --yellow-pale:#FFF6D8;
+        --amber:#FF9F1C;
+        --ink:#161616;
+        --bg:#FFF3B8;
+        --bg-2:#FFED96;
+        --card:#FFFDF0;
+        --card-2:#FFF8DC;
+        --text:#161616;
+        --muted:#5C5410;
+        --line:#161616;
+        --shadow:6px 6px 0 #161616;
+        --shadow-sm:4px 4px 0 #161616;
+        --dark-panel:#161616;
+        --dark-panel-text:#FFE94D;
+        --ok:#0E7A3D;
+      }
+      @media (prefers-color-scheme: dark){
+        :root{
+          --bg:#191604;
+          --bg-2:#221D05;
+          --card:#26230C;
+          --card-2:#2C280E;
+          --text:#FFF3C4;
+          --muted:#D8C87A;
+          --line:#FFD400;
+          --shadow:6px 6px 0 rgba(0,0,0,.85);
+          --shadow-sm:4px 4px 0 rgba(0,0,0,.85);
+          --dark-panel:#0D0D0D;
+          --dark-panel-text:#FFE94D;
+          --ok:#4ADE80;
+        }
+      }
+      *{box-sizing:border-box}
+      html{scroll-behavior:smooth}
+      body{
+        margin:0;
+        font-family:"Archivo",system-ui,-apple-system,"Segoe UI",sans-serif;
+        color:var(--text);
+        background:
+          repeating-conic-gradient(rgba(22,22,22,.045) 0% 25%, transparent 0% 50%) 0 0/28px 28px,
+          linear-gradient(180deg,var(--bg) 0%,var(--bg-2) 100%);
+        min-height:100vh;
+      }
+      @media (prefers-color-scheme: dark){
+        body{background:
+          repeating-conic-gradient(rgba(255,212,0,.05) 0% 25%, transparent 0% 50%) 0 0/28px 28px,
+          linear-gradient(180deg,var(--bg) 0%,var(--bg-2) 100%);}
+      }
+      .px{font-family:"Press Start 2P",monospace}
+      .mono{font-family:"IBM Plex Mono",monospace}
+      a{color:inherit}
+      .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+
+      /* ---------- Header ---------- */
+      header{
+        position:sticky;top:0;z-index:50;
+        background:var(--yellow);
+        border-bottom:3px solid var(--ink);
+      }
+      .header-in{display:flex;align-items:center;gap:14px;padding:10px 0}
+      .brand{display:flex;align-items:center;gap:12px;text-decoration:none;margin-right:auto}
+      .logo-box{
+        width:52px;height:52px;flex:0 0 52px;
+        background:#FFFDF0;border:3px solid var(--ink);
+        box-shadow:3px 3px 0 var(--ink);
+        display:flex;align-items:center;justify-content:center;
+      }
+      .logo-box svg{width:42px;height:42px}
+      .brand-name{font-family:"Press Start 2P",monospace;font-size:15px;line-height:1.5;color:var(--ink);letter-spacing:.5px}
+      .brand-sub{font-size:11px;font-weight:800;letter-spacing:2.5px;color:#4A3F00;text-transform:uppercase}
+      nav{display:flex;gap:4px;align-items:center;flex-wrap:wrap}
+      nav a{
+        text-decoration:none;font-weight:700;font-size:13.5px;
+        padding:8px 12px;border:2px solid transparent;
+      }
+      nav a:hover{border-color:var(--ink);background:#FFFDF0}
+      .phase-pill{
+        font-family:"IBM Plex Mono",monospace;font-size:12px;font-weight:600;
+        background:var(--ink);color:var(--yellow);
+        padding:9px 12px;border:2px solid var(--ink);white-space:nowrap;
+      }
+      @media (max-width:720px){
+        nav{display:none}
+        .brand-name{font-size:12px}
+        .phase-pill{font-size:11px;padding:8px 9px}
+      }
+
+      /* ---------- Hero ---------- */
+      .hero{padding:52px 0 30px}
+      .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:36px;align-items:center}
+      @media (max-width:860px){.hero-grid{grid-template-columns:1fr}}
+      .live-tag{
+        display:inline-flex;align-items:center;gap:8px;
+        background:var(--card);border:2px solid var(--line);
+        box-shadow:var(--shadow-sm);
+        font-family:"IBM Plex Mono",monospace;font-size:12px;font-weight:600;
+        padding:7px 12px;margin-bottom:22px;
+      }
+      .dot{width:9px;height:9px;background:var(--ok);display:inline-block;animation:blink 1.6s steps(2,start) infinite}
+      @keyframes blink{50%{opacity:.25}}
+      @media (prefers-reduced-motion: reduce){.dot{animation:none}}
+      h1{
+        font-family:"Press Start 2P",monospace;
+        font-size:clamp(30px,5.6vw,52px);
+        line-height:1.35;margin:0 0 8px;color:var(--text);
+      }
+      h1 .hl{background:var(--yellow);border:3px solid var(--line);box-shadow:var(--shadow-sm);padding:2px 10px;display:inline-block;color:var(--ink)}
+      .hero-sub{font-size:17.5px;line-height:1.65;color:var(--muted);max-width:56ch;margin:14px 0 26px;font-weight:500}
+      .hero-sub b{color:var(--text)}
+      .cta-row{display:flex;gap:14px;flex-wrap:wrap}
+      .btn{
+        display:inline-block;text-decoration:none;cursor:pointer;
+        font-weight:800;font-size:15px;
+        padding:14px 22px;border:3px solid var(--line);
+        box-shadow:var(--shadow-sm);transition:transform .08s ease, box-shadow .08s ease;
+        background:var(--card);color:var(--text);
+      }
+      .btn:active{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--line)}
+      .btn-yellow{background:var(--yellow);color:var(--ink)}
+      .hero-art{
+        background:var(--card);border:3px solid var(--line);box-shadow:var(--shadow);
+        padding:22px;text-align:center;position:relative;
+      }
+      .hero-art .agent-stage{
+        background:
+          repeating-conic-gradient(rgba(22,22,22,.06) 0% 25%, transparent 0% 50%) 0 0/22px 22px,
+          var(--yellow-soft);
+        border:2px solid var(--line);
+        padding:18px 10px 8px;
+      }
+      .hero-art svg{width:min(280px,72vw);height:auto;image-rendering:pixelated}
+      .hero-art .cap{font-family:"IBM Plex Mono",monospace;font-size:12px;font-weight:600;margin-top:14px;letter-spacing:1px}
+      .hero-art .badge{
+        position:absolute;top:-14px;right:16px;
+        background:var(--amber);color:var(--ink);
+        border:2px solid var(--ink);box-shadow:3px 3px 0 var(--ink);
+        font-family:"Press Start 2P",monospace;font-size:9px;padding:7px 9px;
+      }
+
+      /* ---------- Stats ---------- */
+      .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:34px 0 8px}
+      @media (max-width:860px){.stats{grid-template-columns:repeat(2,1fr)}}
+      .stat{background:var(--card);border:3px solid var(--line);box-shadow:var(--shadow-sm);padding:16px 18px}
+      .stat .k{font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
+      .stat .v{font-family:"Press Start 2P",monospace;font-size:clamp(17px,2.4vw,23px);margin-top:10px;line-height:1.4}
+      .stat .s{font-size:13px;color:var(--muted);margin-top:8px;font-weight:500;line-height:1.5}
+
+      /* ---------- Ticker ---------- */
+      .ticker{
+        margin:36px 0 0;background:var(--ink);color:var(--yellow);
+        border-top:3px solid var(--line);border-bottom:3px solid var(--line);
+        overflow:hidden;white-space:nowrap;
+      }
+      .ticker-in{display:inline-block;padding:10px 0;font-family:"Press Start 2P",monospace;font-size:11px;animation:tick 30s linear infinite}
+      @keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+      @media (prefers-reduced-motion: reduce){.ticker-in{animation:none}}
+
+      /* ---------- Sections ---------- */
+      section{padding:52px 0 6px}
+      .sec-head{margin-bottom:26px}
+      .sec-head h2{font-family:"Press Start 2P",monospace;font-size:clamp(19px,3.4vw,27px);line-height:1.5;margin:0 0 12px}
+      .sec-head p{color:var(--muted);font-size:16px;line-height:1.65;max-width:68ch;margin:0;font-weight:500}
+
+      /* ---------- Collection ---------- */
+      .agents{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+      @media (max-width:860px){.agents{grid-template-columns:repeat(2,1fr)}}
+      .agent-card{background:var(--card);border:3px solid var(--line);box-shadow:var(--shadow-sm);padding:14px}
+      .agent-card .stage{
+        border:2px solid var(--line);
+        background:repeating-conic-gradient(rgba(22,22,22,.05) 0% 25%, transparent 0% 50%) 0 0/18px 18px, var(--card-2);
+        display:flex;justify-content:center;padding:14px 6px 8px;
+      }
+      .agent-card svg{width:104px;height:104px;image-rendering:pixelated}
+      .agent-card .nm{font-family:"Press Start 2P",monospace;font-size:10px;margin-top:13px;line-height:1.6}
+      .agent-card .no{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--muted);font-weight:600;margin-top:5px}
+      .chip{
+        display:inline-block;margin-top:9px;font-size:11px;font-weight:800;letter-spacing:1px;
+        background:var(--yellow);color:var(--ink);border:2px solid var(--ink);padding:3px 8px;text-transform:uppercase;
+      }
+
+      /* ---------- Phases ---------- */
+      .phases{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+      @media (max-width:860px){.phases{grid-template-columns:1fr}}
+      .phase-card{border:3px solid var(--line);box-shadow:var(--shadow);padding:24px;background:var(--card)}
+      .phase-card.free{background:var(--yellow);color:var(--ink)}
+      .phase-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
+      .phase-no{font-family:"Press Start 2P",monospace;font-size:12px;background:var(--ink);color:var(--yellow);padding:8px 10px}
+      .phase-free-tag{font-family:"Press Start 2P",monospace;font-size:12px;background:#FFFDF0;color:var(--ink);border:2px solid var(--ink);padding:8px 10px}
+      .phase-price{font-family:"Press Start 2P",monospace;font-size:clamp(20px,3vw,28px);margin:18px 0 6px;line-height:1.4}
+      .phase-card p{line-height:1.65;font-weight:500;margin:8px 0}
+      .phase-card ul{margin:12px 0 0;padding:0;list-style:none}
+      .phase-card li{padding:7px 0 7px 26px;position:relative;font-weight:600;font-size:14.5px;border-top:2px dashed rgba(22,22,22,.25)}
+      .phase-card:not(.free) li{border-top-color:color-mix(in srgb, var(--line) 30%, transparent)}
+      .phase-card li::before{content:"▸";position:absolute;left:4px;font-weight:800}
+      .split-bar{display:flex;height:30px;border:3px solid var(--line);margin-top:20px;background:var(--card)}
+      .split-free{background:var(--yellow);width:21.9%;border-right:3px solid var(--line);display:flex;align-items:center;justify-content:center;font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:700;color:var(--ink);min-width:86px}
+      .split-paid{flex:1;display:flex;align-items:center;justify-content:center;font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:700}
+      .split-note{font-size:13px;color:var(--muted);margin-top:10px;font-weight:500}
+
+      /* ---------- Mint via Agent ---------- */
+      .mint-panel{background:var(--card);border:3px solid var(--line);box-shadow:var(--shadow);padding:26px}
+      .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:24px}
+      @media (max-width:860px){.steps{grid-template-columns:1fr}}
+      .step{border:2px solid var(--line);background:var(--card-2);padding:16px}
+      .step .n{font-family:"Press Start 2P",monospace;font-size:10px;background:var(--yellow);color:var(--ink);border:2px solid var(--ink);display:inline-block;padding:6px 8px;margin-bottom:11px}
+      .step h3{margin:0 0 8px;font-size:16px}
+      .step p{margin:0;font-size:14px;line-height:1.6;color:var(--muted);font-weight:500}
+      label.flabel{display:block;font-size:11.5px;font-weight:800;letter-spacing:1.8px;text-transform:uppercase;margin:0 0 9px}
+      .wallet-input{
+        width:100%;font-family:"IBM Plex Mono",monospace;font-size:14.5px;
+        padding:14px 15px;border:3px solid var(--line);background:var(--card-2);color:var(--text);
+      }
+      .wallet-input:focus{outline:3px solid var(--yellow);outline-offset:1px}
+      .controls{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:22px}
+      @media (max-width:720px){.controls{grid-template-columns:1fr}}
+      .amount-row{display:flex;align-items:stretch;gap:0}
+      .amount-btn{
+        width:52px;font-size:22px;font-weight:800;cursor:pointer;
+        background:var(--yellow);color:var(--ink);border:3px solid var(--line);
+      }
+      .amount-btn:active{transform:translateY(2px)}
+      .amount-val{
+        flex:1;text-align:center;font-family:"Press Start 2P",monospace;font-size:19px;
+        border-top:3px solid var(--line);border-bottom:3px solid var(--line);
+        display:flex;align-items:center;justify-content:center;background:var(--card-2);padding:12px 4px;
+      }
+      .phase-pick{display:flex;gap:10px;flex-wrap:wrap}
+      .phase-pick button{
+        flex:1;min-width:140px;cursor:pointer;text-align:left;
+        border:3px solid var(--line);background:var(--card-2);color:var(--text);
+        padding:12px 14px;font-family:inherit;
+      }
+      .phase-pick button .t{font-weight:800;font-size:14.5px;display:block}
+      .phase-pick button .d{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--muted);font-weight:600}
+      .phase-pick button.on{background:var(--yellow);color:var(--ink);box-shadow:var(--shadow-sm)}
+      .phase-pick button.on .d{color:#4A3F00}
+      .total-line{
+        margin-top:18px;font-family:"IBM Plex Mono",monospace;font-size:14px;font-weight:600;
+        border:2px dashed var(--line);padding:12px 14px;background:var(--card-2);
+      }
+      .prompts{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:26px}
+      @media (max-width:860px){.prompts{grid-template-columns:1fr}}
+      .prompt-card{border:3px solid var(--line);background:var(--dark-panel);box-shadow:var(--shadow-sm)}
+      .prompt-head{
+        display:flex;justify-content:space-between;align-items:center;gap:10px;
+        padding:12px 15px;border-bottom:2px solid rgba(255,212,0,.35);
+      }
+      .prompt-head .t{font-family:"Press Start 2P",monospace;font-size:10.5px;color:var(--dark-panel-text);line-height:1.7}
+      .prompt-head .tag{font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:700;background:var(--yellow);color:var(--ink);padding:4px 8px;white-space:nowrap}
+      .prompt-body{
+        font-family:"IBM Plex Mono",monospace;font-size:13px;line-height:1.75;
+        color:#F5EFD2;padding:16px;white-space:pre-wrap;word-break:break-word;min-height:196px;
+      }
+      .copy-btn{
+        display:block;width:100%;cursor:pointer;border:none;border-top:2px solid rgba(255,212,0,.35);
+        background:var(--yellow);color:var(--ink);
+        font-family:"Press Start 2P",monospace;font-size:11px;padding:15px 10px;
+      }
+      .copy-btn:active{transform:translateY(2px)}
+      .copy-btn.done{background:var(--ok);color:#fff}
+      .agent-note{font-size:13.5px;color:var(--muted);line-height:1.65;margin-top:18px;font-weight:500}
+      .agent-note b{color:var(--text)}
+
+      /* ---------- FAQ ---------- */
+      .faq{display:grid;gap:12px}
+      details{border:3px solid var(--line);background:var(--card);box-shadow:var(--shadow-sm)}
+      summary{cursor:pointer;font-weight:800;font-size:15.5px;padding:16px 18px;list-style:none}
+      summary::-webkit-details-marker{display:none}
+      summary::after{content:"+";float:right;font-family:"Press Start 2P",monospace;font-size:13px}
+      details[open ] summary::after{content:"–"}
+      details .a{padding:0 18px 18px;color:var(--muted);line-height:1.7;font-weight:500;font-size:15px}
+
+      footer{margin-top:64px;border-top:3px solid var(--line);background:var(--yellow);color:var(--ink)}
+      .footer-in{display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap;padding:22px 0}
+      .footer-in .l{display:flex;align-items:center;gap:11px;font-family:"Press Start 2P",monospace;font-size:11px;line-height:1.6}
+      .footer-in .l svg{width:30px;height:30px}
+      .footer-in .r{font-family:"IBM Plex Mono",monospace;font-size:12.5px;font-weight:600}
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="wrap header-in">
+        <a class="brand" href="#top" aria-label="Agent Framlin — home">
+          <span class="logo-box" id="logoSlot" aria-hidden="true"></span>
+          <span>
+            <span class="brand-name">AGENT FRAMLIN</span><br />
+            <span class="brand-sub">Pixel NFT Collection</span>
+          </span>
+        </a>
+        <nav aria-label="Main navigation">
+          <a href="#collection">Collection</a>
+          <a href="#phases">Phases</a>
+          <a href="#mint">Mint via Agent</a>
+          <a href="#faq">FAQ</a>
+        </nav>
+        <span class="phase-pill">PHASE 1 · FREE MINT</span>
+      </div>
+    </header>
+
+    <main id="top">
+      <!-- HERO -->
+      <div class="wrap hero">
+        <div class="hero-grid">
+          <div>
+            <span class="live-tag"><span class="dot"></span> MINT VIA AI AGENT · BNB CHAIN</span>
+            <h1>AGENT<br /><span class="hl">FRAMLIN</span></h1>
+            <p class="hero-sub">
+              A collection of <b>4,567 tiny pixel agents</b> ready to go on duty in your wallet.
+              <b>The first 1,000 are FREE MINT</b> — after that, Phase 2 opens at
+              <b>0.003 BNB</b> per NFT. Every mint is done <b>through an AI Agent</b>:
+              just copy the prompt, send it to your agent, and approve in your wallet.
+            </p>
+            <div class="cta-row">
+              <a class="btn btn-yellow" href="#mint">Mint via AI Agent →</a>
+              <a class="btn" href="#phases">View the 2 Phases</a>
+            </div>
+          </div>
+          <div class="hero-art">
+            <span class="badge">UNIT #0001</span>
+            <div class="agent-stage" id="heroAgent" aria-label="Pixel art of Agent Framlin, a tiny yellow robot with an antenna and a glowing visor"></div>
+            <div class="cap">FRAMLIN-01 · THE FIRST AGENT ON DUTY</div>
+          </div>
+        </div>
+
+        <div class="stats">
+          <div class="stat">
+            <div class="k">Total Supply</div>
+            <div class="v">4,567</div>
+            <div class="s">The entire Agent Framlin collection — no more will ever be added.</div>
+          </div>
+          <div class="stat">
+            <div class="k">Phase 1 · Free Mint</div>
+            <div class="v">1,000</div>
+            <div class="s">Tokens #1 – #1,000, free for those who arrive first.</div>
+          </div>
+          <div class="stat">
+            <div class="k">Phase 2 · Paid Mint</div>
+            <div class="v">0.003</div>
+            <div class="s">BNB per NFT for tokens #1,001 – #4,567 (3,567 NFTs).</div>
+          </div>
+          <div class="stat">
+            <div class="k">How to Mint</div>
+            <div class="v">AI AGENT</div>
+            <div class="s">Copy the prompt, send it to your AI Agent, approve in your wallet.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ticker" aria-hidden="true">
+        <div class="ticker-in" id="tickerIn"></div>
+      </div>
+
+      <!-- COLLECTION -->
+      <section id="collection">
+        <div class="wrap">
+          <div class="sec-head">
+            <h2>MEET THE AGENTS.</h2>
+            <p>Every Framlin is a pixel agent with its own combination of body, visor, and antenna colors. Simple, tiny, and always ready for duty — here are some of the 4,567 units that will be in circulation.</p>
+          </div>
+          <div class="agents" id="agentGrid"></div>
+        </div>
+      </section>
+
+      <!-- PHASES -->
+      <section id="phases">
+        <div class="wrap">
+          <div class="sec-head">
+            <h2>TWO PHASES. ONE SUPPLY.</h2>
+            <p>Minting opens in stages from a single shared supply of 4,567 NFTs. When Phase 1 sells out, Phase 2 follows right after.</p>
+          </div>
+          <div class="phases">
+            <article class="phase-card free">
+              <div class="phase-top">
+                <span class="phase-no">PHASE 01</span>
+                <span class="phase-free-tag">FREE MINT</span>
+              </div>
+              <div class="phase-price">0 BNB</div>
+              <p>For the first 1,000 minters. The NFT is free — you only pay the BNB Chain network gas fee, just like any regular transaction.</p>
+              <ul>
+                <li>Allocation: 1,000 NFTs (tokens #1 – #1,000)</li>
+                <li>Price: free / free mint</li>
+                <li>Ends automatically when the 1,000 are gone</li>
+                <li>Mint via AI Agent using the Free Mint Prompt</li>
+              </ul>
+            </article>
+            <article class="phase-card">
+              <div class="phase-top">
+                <span class="phase-no">PHASE 02</span>
+                <span class="phase-free-tag">PAID MINT</span>
+              </div>
+              <div class="phase-price">0.003 BNB</div>
+              <p>Opens after Phase 1 is complete. The remaining supply of 3,567 NFTs can be minted at a fixed price of 0.003 BNB per NFT until sold out.</p>
+              <ul>
+                <li>Allocation: 3,567 NFTs (tokens #1,001 – #4,567)</li>
+                <li>Price: 0.003 BNB per NFT</li>
+                <li>Total payable = 0.003 × mint amount</li>
+                <li>Mint via AI Agent using the Paid Mint Prompt</li>
+              </ul>
+            </article>
+          </div>
+          <div class="split-bar" role="img" aria-label="Supply split: 1,000 free mint and 3,567 paid mint out of a total of 4,567">
+            <div class="split-free">FREE · 1,000</div>
+            <div class="split-paid">PAID · 3,567</div>
+          </div>
+          <p class="split-note">Agent Framlin supply split: 1,000 free mint (21.9%) + 3,567 paid mint (78.1%) = 4,567 NFTs.</p>
+        </div>
+      </section>
+
+      <!-- MINT VIA AI AGENT -->
+      <section id="mint">
+        <div class="wrap">
+          <div class="sec-head">
+            <h2>MINT VIA AI AGENT.</h2>
+            <p>No need to connect your wallet manually on the website. Paste your wallet address, choose a phase and amount, then copy the prompt and send it to your AI Agent (for example, Binance Agentic Wallet). The agent prepares the transaction — you just approve it in your wallet.</p>
+          </div>
+
+          <div class="mint-panel">
+            <div class="steps">
+              <div class="step">
+                <span class="n">STEP 1</span>
+                <h3>Paste your wallet address</h3>
+                <p>Enter your BNB Chain wallet address in the field below. Both prompts will fill in automatically with that address.</p>
+              </div>
+              <div class="step">
+                <span class="n">STEP 2</span>
+                <h3>Choose phase &amp; amount</h3>
+                <p>Phase 1 is for the free mint, Phase 2 is for the paid mint at 0.003 BNB. The amount you choose applies to the prompt you copy.</p>
+              </div>
+              <div class="step">
+                <span class="n">STEP 3</span>
+                <h3>Copy the prompt &amp; send it</h3>
+                <p>Press COPY PROMPT, send it to your AI Agent, then check the details and approve the transaction in your own wallet.</p>
+              </div>
+            </div>
+
+            <label class="flabel" for="walletInput">Your wallet address — paste it here</label>
+            <input class="wallet-input" id="walletInput" type="text" inputmode="text" autocomplete="off" spellcheck="false" placeholder="0x… paste your BNB Chain wallet address" />
+
+            <div class="controls">
+              <div>
+                <span class="flabel">Mint phase</span>
+                <div class="phase-pick" role="group" aria-label="Choose mint phase">
+                  <button type="button" id="pickFree" class="on">
+                    <span class="t">Phase 1 · Free Mint</span>
+                    <span class="d">First 1,000 · 0 BNB</span>
+                  </button>
+                  <button type="button" id="pickPaid">
+                    <span class="t">Phase 2 · Paid Mint</span>
+                    <span class="d">After free sells out · 0.003 BNB</span>
+                  </button>
+                </div>
+              </div>
+              <div>
+                <span class="flabel">Mint amount</span>
+                <div class="amount-row">
+                  <button type="button" class="amount-btn" id="amtMinus" aria-label="Decrease amount">−</button>
+                  <div class="amount-val" id="amtVal">1</div>
+                  <button type="button" class="amount-btn" id="amtPlus" aria-label="Increase amount">+</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="total-line" id="totalLine">Total: FREE — 0 BNB for 1 NFT (network gas fee not included).</div>
+
+            <div class="prompts">
+              <article class="prompt-card">
+                <div class="prompt-head">
+                  <span class="t">PROMPT — FREE MINT</span>
+                  <span class="tag">PHASE 1 · 0 BNB</span>
+                </div>
+                <div class="prompt-body" id="freePrompt"></div>
+                <button type="button" class="copy-btn" id="copyFree">COPY PROMPT</button>
+              </article>
+              <article class="prompt-card">
+                <div class="prompt-head">
+                  <span class="t">PROMPT — PAID MINT</span>
+                  <span class="tag">PHASE 2 · 0.003 BNB</span>
+                </div>
+                <div class="prompt-body" id="paidPrompt"></div>
+                <button type="button" class="copy-btn" id="copyPaid">COPY PROMPT</button>
+              </article>
+            </div>
+
+            <p class="agent-note">
+              <b>Note:</b> the contract address in the prompts, marked <span class="mono">[AGENT FRAMLIN CONTRACT ADDRESS]</span>, will be officially announced when mint opens — replace that marker with the official contract address before sending the prompt to your agent.
+              <b>Never</b> share your seed phrase or private key with anyone, including an AI Agent. A legitimate agent only ever asks you to approve the transaction in your wallet.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section id="faq">
+        <div class="wrap">
+          <div class="sec-head">
+            <h2>FAQ.</h2>
+          </div>
+          <div class="faq">
+            <details>
+              <summary>What is the total supply of Agent Framlin?</summary>
+              <div class="a">The total is 4,567 NFTs: 1,000 free mint NFTs in Phase 1 (tokens #1 – #1,000) and 3,567 paid mint NFTs in Phase 2 (tokens #1,001 – #4,567).</div>
+            </details>
+            <details>
+              <summary>How do I mint?</summary>
+              <div class="a">All minting is done through an AI Agent. Paste your wallet address in the Mint via AI Agent section, choose a phase and amount, copy the matching prompt (Free Mint or Paid Mint), then send that prompt to your AI Agent. Check the transaction details and approve it in your own wallet.</div>
+            </details>
+            <details>
+              <summary>When does Phase 2 open and what does it cost?</summary>
+              <div class="a">Phase 2 opens after the 1,000 free mints in Phase 1 are gone. The price stays fixed at 0.003 BNB per NFT, so the total you pay is 0.003 BNB multiplied by the number of NFTs you mint, plus the network gas fee.</div>
+            </details>
+            <details>
+              <summary>Is the free mint really free?</summary>
+              <div class="a">The NFT itself costs 0 BNB — you only pay the BNB Chain network gas fee for the transaction, just like any other on-chain transaction.</div>
+            </details>
+            <details>
+              <summary>Is it safe to give the prompt to an AI Agent?</summary>
+              <div class="a">The prompt only contains mint instructions and your public wallet address. Never give your seed phrase or private key to anyone — a legitimate agent will always ask you to approve the transaction directly in your wallet.</div>
+            </details>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="wrap footer-in">
+        <span class="l"><span id="footLogo" aria-hidden="true"></span> AGENT FRAMLIN</span>
+        <span class="r">Supply 4,567 · Free Mint 1,000 · Paid 0.003 BNB · Mint via AI Agent</span>
+      </div>
+    </footer>
+
+    <script>
+      /* ---------- Pixel agent renderer (16x16 map) ---------- */
+      var MAP = [
+        ".......OO.......",
+        ".......KK.......",
+        ".......KK.......",
+        "....KKKKKKKK....",
+        "..KKYYYYYYYYKK..",
+        ".KYYYYYYYYYYYYK.",
+        ".KYKKKKKKKKKKYK.",
+        ".KYKCCKKKKCCKYK.",
+        ".KYKKKKKKKKKKYK.",
+        ".KYYYYYYYYYYYYK.",
+        "..KYYYYKKYYYYK..",
+        "...KYYYYYYYYK...",
+        "..KKKYYYYYYKKK..",
+        ".KDDKYYYYYYKDDK.",
+        ".KDDK.KYYK.KDDK.",
+        ".....KK..KK....."
+      ];
+      function agentSVG(palette, title) {
+        var rects = "";
+        for (var y = 0; y < MAP.length; y++) {
+          var row = MAP[y];
+          for (var x = 0; x < row.length; x++) {
+            var ch = row.charAt(x);
+            if (ch === ".") continue;
+            var fill = palette[ch] || "#161616";
+            rects += '<rect x="' + x + '" y="' + y + '" width="1.02" height="1.02" fill="' + fill + '"/>';
+          }
+        }
+        return '<svg viewBox="0 0 16 16" shape-rendering="crispEdges" role="img" aria-label="' + title + '">' + rects + "</svg>";
+      }
+      var INK = "#161616";
+      var PALETTES = [
+        { K: INK, Y: "#FFD400", D: "#DFA900", C: "#2FD8E0", O: "#FF5A3C" },
+        { K: INK, Y: "#FFB800", D: "#C98A00", C: "#4DE3FF", O: "#161616" },
+        { K: INK, Y: "#FFE94D", D: "#E3C51C", C: "#FF9F1C", O: "#2FD8E0" },
+        { K: INK, Y: "#FFC933", D: "#D9930D", C: "#8BE04E", O: "#FF5A3C" },
+        { K: INK, Y: "#F5C400", D: "#B98F00", C: "#2FD8E0", O: "#FFF3B8" },
+        { K: INK, Y: "#FFD400", D: "#DFA900", C: "#FF7AB6", O: "#161616" },
+        { K: INK, Y: "#FFCE00", D: "#CC9E00", C: "#4DE3FF", O: "#8BE04E" },
+        { K: INK, Y: "#FFE94D", D: "#D9B81F", C: "#161616", O: "#FF9F1C" }
+      ];
+      var UNITS = [
+        { name: "FRAMLIN-01", chip: "Classic" },
+        { name: "FRAMLIN-02", chip: "Gold Unit" },
+        { name: "FRAMLIN-03", chip: "Lemon Scout" },
+        { name: "FRAMLIN-04", chip: "Amber Guard" },
+        { name: "FRAMLIN-05", chip: "Honey Ops" },
+        { name: "FRAMLIN-06", chip: "Solar Pop" },
+        { name: "FRAMLIN-07", chip: "Mint Visor" },
+        { name: "FRAMLIN-08", chip: "Night Shift" }
+      ];
+      document.getElementById("logoSlot").innerHTML = agentSVG(PALETTES[0], "Agent Framlin logo");
+      document.getElementById("footLogo").innerHTML = agentSVG(PALETTES[0], "");
+      document.getElementById("heroAgent").innerHTML = agentSVG(PALETTES[0], "Agent Framlin");
+      var grid = document.getElementById("agentGrid");
+      var cards = "";
+      for (var i = 0; i < UNITS.length; i++) {
+        var num = ("000" + (i + 1)).slice(-4);
+        cards += '<article class="agent-card"><div class="stage">' + agentSVG(PALETTES[i], "Pixel agent " + UNITS[i].name) + '</div>' +
+          '<div class="nm">' + UNITS[i].name + '</div><div class="no">AGENT #' + num + ' · SAMPLE UNIT</div>' +
+          '<span class="chip">' + UNITS[i].chip + '</span></article>';
+      }
+      grid.innerHTML = cards;
+
+      /* ---------- Ticker ---------- */
+      var tick = "AGENT FRAMLIN ✦ SUPPLY 4,567 ✦ FREE MINT 1,000 ✦ PAID MINT 0.003 BNB ✦ MINT VIA AI AGENT ✦ ";
+      document.getElementById("tickerIn").textContent = tick + tick + tick + tick;
+
+      /* ---------- Mint prompt logic ---------- */
+      var CONTRACT = "[AGENT FRAMLIN CONTRACT ADDRESS]";
+      var state = { phase: "free", amount: 1 };
+      var walletInput = document.getElementById("walletInput");
+      var amtVal = document.getElementById("amtVal");
+      var totalLine = document.getElementById("totalLine");
+      var freeEl = document.getElementById("freePrompt");
+      var paidEl = document.getElementById("paidPrompt");
+
+      function walletText() {
+        var v = walletInput.value.trim();
+        return v ? v : "[PASTE YOUR WALLET ADDRESS]";
+      }
+      function fmtBNB(n) {
+        return (Math.round(n * 10000) / 10000).toString();
+      }
+      function buildPrompts() {
+        var amt = state.amount;
+        var addr = walletText();
+        var total = fmtBNB(0.003 * amt);
+        freeEl.textContent =
+          "Mint " + amt + " Agent Framlin NFT (free mint, Phase 1) on BNB Chain (chain ID 56). " +
+          "Contract: " + CONTRACT + ". My wallet: " + addr + ". " +
+          "Call mintFree(" + amt + ") with a value of 0 BNB. " +
+          "This free mint phase covers the first 1,000 of the 4,567 total supply. " +
+          "Show me the full transaction details first and wait for my approval in my wallet before sending. " +
+          "Never ask for my seed phrase or private key.";
+        paidEl.textContent =
+          "Mint " + amt + " Agent Framlin NFT (paid mint, Phase 2) on BNB Chain (chain ID 56). " +
+          "Contract: " + CONTRACT + ". My wallet: " + addr + ". " +
+          "Call mintPaid(" + amt + ") with a value of 0.003 BNB x " + amt + " = " + total + " BNB. " +
+          "This paid phase covers token #1,001 to #4,567 of the collection, after the 1,000 free mint phase. " +
+          "Show me the full transaction details first and wait for my approval in my wallet before sending. " +
+          "Never ask for my seed phrase or private key.";
+        amtVal.textContent = amt;
+        if (state.phase === "free") {
+          totalLine.textContent = "Selected phase: FREE MINT — total 0 BNB for " + amt + " NFT (network gas fee not included). Copy the Free Mint Prompt below.";
+        } else {
+          totalLine.textContent = "Selected phase: PAID MINT — total 0.003 BNB x " + amt + " = " + total + " BNB for " + amt + " NFT (network gas fee not included). Copy the Paid Mint Prompt below.";
+        }
+      }
+      function setPhase(p) {
+        state.phase = p;
+        document.getElementById("pickFree").classList.toggle("on", p === "free");
+        document.getElementById("pickPaid").classList.toggle("on", p === "paid");
+        buildPrompts();
+      }
+      document.getElementById("pickFree").addEventListener("click", function () { setPhase("free"); });
+      document.getElementById("pickPaid").addEventListener("click", function () { setPhase("paid"); });
+      document.getElementById("amtMinus").addEventListener("click", function () {
+        if (state.amount > 1) { state.amount--; buildPrompts(); }
+      });
+      document.getElementById("amtPlus").addEventListener("click", function () {
+        if (state.amount < 20) { state.amount++; buildPrompts(); }
+      });
+      walletInput.addEventListener("input", buildPrompts);
+      buildPrompts();
+
+      /* ---------- Copy buttons ---------- */
+      function copyText(text, btn) {
+        function done() {
+          var old = btn.textContent;
+          btn.textContent = "COPIED ✓";
+          btn.classList.add("done");
+          setTimeout(function () { btn.textContent = old; btn.classList.remove("done"); }, 1800);
+        }
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(done, function () { fallback(); });
+        } else { fallback(); }
+        function fallback() {
+          var ta = document.createElement("textarea");
+          ta.value = text;
+          ta.style.position = "fixed"; ta.style.opacity = "0";
+          document.body.appendChild(ta);
+          ta.select();
+          try { document.execCommand("copy"); done(); } catch (e) {}
+          document.body.removeChild(ta);
+        }
+      }
+      document.getElementById("copyFree").addEventListener("click", function () { copyText(freeEl.textContent, this); });
+      document.getElementById("copyPaid").addEventListener("click", function () { copyText(paidEl.textContent, this); });
+    </script>
+  </body>
+</html>
