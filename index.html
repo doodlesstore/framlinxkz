@@ -415,7 +415,7 @@
               <ul>
                 <li>Allocation: 1,000 NFTs (tokens #1 – #1,000)</li>
                 <li>Phase 1A: #1 – #300, 0 BNB, max 3</li>
-                <li>Phase 1B: #301 – #1,000, 0.00015 BNB fee, max 3</li>
+                <li>Phase 1B: #301 – #1,000, 0.00015 BNB fee, max 3 — the fee is paid to the contract itself, not to a treasury or personal wallet</li>
                 <li>Mint via AI Agent using the Free Mint / Fee Mint Prompt</li>
               </ul>
             </article>
@@ -428,7 +428,7 @@
               <p>Opens after Phase 1 is complete. The remaining supply of 3,567 NFTs can be minted at a fixed price of 0.003 BNB per NFT until sold out.</p>
               <ul>
                 <li>Allocation: 3,567 NFTs (tokens #1,001 – #4,567)</li>
-                <li>Price: 0.003 BNB per NFT, max 5 per mint</li>
+                <li>Price: 0.003 BNB per NFT, max 5 per mint — the payment is sent to the contract itself, not to a treasury or personal wallet</li>
                 <li>Total payable = 0.003 × mint amount</li>
                 <li>Mint via AI Agent using the Paid Mint Prompt</li>
               </ul>
@@ -531,6 +531,7 @@
 
             <p class="agent-note">
               <b>Note:</b> the contract address in the prompts, marked <span class="mono">[AGENT FRAMLIN CONTRACT ADDRESS]</span>, will be officially announced when mint opens — replace that marker with the official contract address before sending the prompt to your agent.
+              <b>Payments:</b> the 0.00015 BNB fee mint and 0.003 BNB paid mint payments are sent to the contract itself and stay there until the owner withdraws them. There is no treasury address.
               <b>Never</b> share your seed phrase or private key with anyone, including an AI Agent. A legitimate agent only ever asks you to approve the transaction in your wallet.
             </p>
           </div>
@@ -559,6 +560,10 @@
             <details>
               <summary>Is the free mint really free?</summary>
               <div class="a">The first 300 NFTs cost 0 BNB — you only pay the BNB Chain network gas fee. Tokens #301–#1,000 are still free NFTs, but with a 0.00015 BNB fee per NFT.</div>
+            </details>
+            <details>
+              <summary>Where do the fee mint and paid mint payments go?</summary>
+              <div class="a">To the Agent Framlin contract itself. The 0.00015 BNB fee (Phase 1B) and the 0.003 BNB paid mint price (Phase 2) are sent to the contract when you mint, and stay in the contract until the owner withdraws them. There is no treasury address and the payments are not sent to any personal wallet.</div>
             </details>
             <details>
               <summary>Is it safe to give the prompt to an AI Agent?</summary>
@@ -681,14 +686,14 @@
         feeEl.textContent =
           "Mint " + amt + " Agent Framlin NFT (free mint with fee, Phase 1B) on BNB Chain (chain ID 56). " +
           "Contract: " + CONTRACT + ". My wallet: " + addr + ". " +
-          "Call mintFreeFee(" + amt + ") with a value of 0.00015 BNB x " + amt + " = " + feeTotal + " BNB. Max 3 per mint. " +
+          "Call mintFreeFee(" + amt + ") with a value of 0.00015 BNB x " + amt + " = " + feeTotal + " BNB, sent to the contract itself. Max 3 per mint. " +
           "This phase covers token #301 to #1,000 of the collection, after the first 300 free mints. " +
           "Show me the full transaction details first and wait for my approval in my wallet before sending. " +
           "Never ask for my seed phrase or private key.";
         paidEl.textContent =
           "Mint " + amt + " Agent Framlin NFT (paid mint, Phase 2) on BNB Chain (chain ID 56). " +
           "Contract: " + CONTRACT + ". My wallet: " + addr + ". " +
-          "Call mintPaid(" + amt + ") with a value of 0.003 BNB x " + amt + " = " + total + " BNB. Max 5 per mint. " +
+          "Call mintPaid(" + amt + ") with a value of 0.003 BNB x " + amt + " = " + total + " BNB, sent to the contract itself. Max 5 per mint. " +
           "This paid phase covers token #1,001 to #4,567 of the collection, after the 1,000 free mint phase. " +
           "Show me the full transaction details first and wait for my approval in my wallet before sending. " +
           "Never ask for my seed phrase or private key.";
