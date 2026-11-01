@@ -329,7 +329,7 @@
           <a href="#mint">Mint via Agent</a>
           <a href="#faq">FAQ</a>
         </nav>
-        <span class="phase-pill">PHASE 1 · FREE MINT</span>
+        <span class="phase-pill">PHASE 1B · FEE MINT</span>
       </div>
     </header>
 
@@ -342,7 +342,7 @@
             <h1>AGENT<br /><span class="hl">FRAMLIN</span></h1>
             <p class="hero-sub">
               A collection of <b>4,567 tiny pixel agents</b> ready to go on duty in your wallet.
-              <b>The first 300 are FREE MINT (max 3)</b>, then #301–#1,000 are free mint with a <b>0.00015 BNB</b> fee (max 3) — after that, Phase 2 opens at
+              <b>The first 300 are SOLD OUT</b> — now #301–#1,000 are free mint with a <b>0.00015 BNB</b> fee (max 3) — after that, Phase 2 opens at
               <b>0.003 BNB</b> per NFT (max 5). Every mint is done <b>through an AI Agent</b>:
               just copy the prompt, send it to your agent, and approve in your wallet.
             </p>
@@ -461,7 +461,7 @@
               <div class="step">
                 <span class="n">STEP 2</span>
                 <h3>Choose phase &amp; amount</h3>
-                <p>Phase 1A is free mint (#1–#300, max 3), Phase 1B is free mint with a 0.00015 BNB fee (#301–#1,000, max 3), Phase 2 is paid mint at 0.003 BNB (max 5). The amount you choose applies to the prompt you copy.</p>
+                <p>Phase 1A free mint (#1–#300) is SOLD OUT. The active phase is Phase 1B: free mint with a 0.00015 BNB fee (#301–#1,000, max 3), then Phase 2 paid mint at 0.003 BNB (max 5). The amount you choose applies to the prompt you copy.</p>
               </div>
               <div class="step">
                 <span class="n">STEP 3</span>
@@ -477,11 +477,11 @@
               <div>
                 <span class="flabel">Mint phase</span>
                 <div class="phase-pick" role="group" aria-label="Choose mint phase">
-                  <button type="button" id="pickFree" class="on">
-                    <span class="t">Phase 1 · Free Mint</span>
-                    <span class="d">#1 – #300 · 0 BNB · max 3</span>
+                  <button type="button" id="pickFree" disabled title="Phase 1A is sold out">
+                    <span class="t">Phase 1 · Free Mint — SOLD OUT</span>
+                    <span class="d">#1 – #300 · sold out</span>
                   </button>
-                  <button type="button" id="pickFee">
+                  <button type="button" id="pickFee" class="on">
                     <span class="t">Phase 1B · Fee Mint</span>
                     <span class="d">#301 – #1,000 · 0.00015 BNB fee · max 3</span>
                   </button>
@@ -501,16 +501,16 @@
               </div>
             </div>
 
-            <div class="total-line" id="totalLine">Total: FREE — 0 BNB for 1 NFT (network gas fee not included).</div>
+            <div class="total-line" id="totalLine">Selected phase: FEE MINT 1B — total 0.00015 BNB x 1 = 0.00015 BNB for 1 NFT (max 3, network gas fee not included). Copy the Fee Mint Prompt below.</div>
 
             <div class="prompts">
               <article class="prompt-card">
                 <div class="prompt-head">
                   <span class="t">PROMPT — FREE MINT</span>
-                  <span class="tag">PHASE 1 · 0 BNB</span>
+                  <span class="tag">PHASE 1 · SOLD OUT</span>
                 </div>
                 <div class="prompt-body" id="freePrompt"></div>
-                <button type="button" class="copy-btn" id="copyFree">COPY PROMPT</button>
+                <button type="button" class="copy-btn" id="copyFree" disabled title="Phase 1A is sold out">SOLD OUT</button>
               </article>
               <article class="prompt-card">
                 <div class="prompt-head">
@@ -656,7 +656,7 @@
 
       /* ---------- Mint prompt logic ---------- */
       var CONTRACT = "0x83F98B74a46C3495f76010D4eD39dd951C26E571";
-      var state = { phase: "free", amount: 1 };
+      var state = { phase: "fee", amount: 1 };
       var PHASE_MAX = { free: 3, fee: 3, paid: 5 };
       var walletInput = document.getElementById("walletInput");
       var amtVal = document.getElementById("amtVal");
