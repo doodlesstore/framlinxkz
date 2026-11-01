@@ -4,7 +4,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="color-scheme" content="light dark" />
-    <link rel="icon" href="data:," />
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png" />
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#FFD400" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Agent Framlin" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     <title>Agent Framlin — NFT Mint</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -724,6 +731,7 @@
       document.getElementById("copyFree").addEventListener("click", function () { copyText(freeEl.textContent, this); });
       document.getElementById("copyFee").addEventListener("click", function () { copyText(feeEl.textContent, this); });
       document.getElementById("copyPaid").addEventListener("click", function () { copyText(paidEl.textContent, this); });
+      if ("serviceWorker" in navigator) { navigator.serviceWorker.register("/sw.js").catch(function () {}); }
     </script>
   </body>
 </html>

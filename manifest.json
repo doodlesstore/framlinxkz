@@ -1,0 +1,17 @@
+{
+  "name": "Agent Framlin — NFT Mint",
+  "short_name": "Agent Framlin",
+  "description": "Agent Framlin pixel NFT collection on BNB Chain. Supply 4,567, mint via AI Agent.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#FFF3B8",
+  "theme_color": "#FFD400",
+  "icons": [
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
+    { "src": "/icons/apple-touch-icon.png", "sizes": "180x180", "type": "image/png", "purpose": "any" }
+  ]
+}
