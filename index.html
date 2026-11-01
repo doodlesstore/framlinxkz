@@ -380,6 +380,7 @@
             <div class="s">Copy the prompt, send it to your AI Agent, approve in your wallet.</div>
           </div>
         </div>
+        <p id="supplyLine" style="text-align:center;font-weight:700;margin:18px 0 0;cursor:pointer" title="Click to refresh live supply">Loading remaining supply...</p>
       </div>
 
       <div class="ticker" aria-hidden="true">
@@ -725,6 +726,33 @@
       });
       walletInput.addEventListener("input", buildPrompts);
       buildPrompts();
+
+      /* ---------- Live supply (on-chain) ---------- */
+      var SUPPLY_RPCS = ["https://bsc-dataseed.binance.org/", "https://bsc-dataseed1.binance.org/", "https://bsc-dataseed2.binance.org/", "https://bsc.publicnode.com/"];
+      async function ethCall(rpc, data) {
+        var res = await fetch(rpc, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ jsonrpc: "2.0", method: "eth_call", params: [{ to: CONTRACT, data: data }, "latest"], id: 1 }) });
+        var j = await res.json();
+        if (!j.result) { throw new Error("no result"); }
+        return parseInt(j.result, 16);
+      }
+      async function loadSupply() {
+        var el = document.getElementById("supplyLine");
+        el.textContent = "Loading remaining supply...";
+        for (var i = 0; i < SUPPLY_RPCS.length; i++) {
+          try {
+            var minted = await ethCall(SUPPLY_RPCS[i], "0xa2309ff8");
+            var enabled = await ethCall(SUPPLY_RPCS[i], "0xd1239730");
+            var total = 4567;
+            var remaining = total - minted;
+            var phase = minted < 300 ? "Phase 1A — Free Mint" : (minted < 1000 ? "Phase 1B — Fee Mint" : "Phase 2 — Paid Mint");
+            el.textContent = "Minted: " + minted.toLocaleString("en-US") + " / 4,567 · Remaining: " + remaining.toLocaleString("en-US") + " · Mint is " + (enabled ? "OPEN" : "CLOSED") + " · Now: " + phase;
+            return;
+          } catch (e) { /* try next RPC */ }
+        }
+        el.textContent = "Could not load remaining supply — click to retry.";
+      }
+      document.getElementById("supplyLine").addEventListener("click", loadSupply);
+      loadSupply();
 
       /* ---------- Copy buttons ---------- */
       function copyText(text, btn) {
