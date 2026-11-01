@@ -321,8 +321,8 @@
             <h1>AGENT<br /><span class="hl">FRAMLIN</span></h1>
             <p class="hero-sub">
               A collection of <b>4,567 tiny pixel agents</b> ready to go on duty in your wallet.
-              <b>The first 1,000 are FREE MINT</b> — after that, Phase 2 opens at
-              <b>0.003 BNB</b> per NFT. Every mint is done <b>through an AI Agent</b>:
+              <b>The first 300 are FREE MINT (max 3)</b>, then #301–#1,000 are free mint with a <b>0.00015 BNB</b> fee (max 3) — after that, Phase 2 opens at
+              <b>0.003 BNB</b> per NFT (max 5). Every mint is done <b>through an AI Agent</b>:
               just copy the prompt, send it to your agent, and approve in your wallet.
             </p>
             <div class="cta-row">
@@ -346,12 +346,12 @@
           <div class="stat">
             <div class="k">Phase 1 · Free Mint</div>
             <div class="v">1,000</div>
-            <div class="s">Tokens #1 – #1,000, free for those who arrive first.</div>
+            <div class="s">Tokens #1 – #300 free (max 3), #301 – #1,000 free + 0.00015 BNB fee (max 3).</div>
           </div>
           <div class="stat">
             <div class="k">Phase 2 · Paid Mint</div>
             <div class="v">0.003</div>
-            <div class="s">BNB per NFT for tokens #1,001 – #4,567 (3,567 NFTs).</div>
+            <div class="s">BNB per NFT for tokens #1,001 – #4,567 (3,567 NFTs, max 5).</div>
           </div>
           <div class="stat">
             <div class="k">How to Mint</div>
@@ -389,13 +389,13 @@
                 <span class="phase-no">PHASE 01</span>
                 <span class="phase-free-tag">FREE MINT</span>
               </div>
-              <div class="phase-price">0 BNB</div>
-              <p>For the first 1,000 minters. The NFT is free — you only pay the BNB Chain network gas fee, just like any regular transaction.</p>
+              <div class="phase-price">0 BNB / 0.00015 BNB</div>
+              <p>Phase 1A: the first 300 minters get the NFT free (max 3 per mint) — you only pay the BNB Chain network gas fee. Phase 1B: after 300 are gone, tokens #301 – #1,000 are still free NFTs, but with a 0.00015 BNB fee per NFT (max 3 per mint), until 1,000 are reached.</p>
               <ul>
                 <li>Allocation: 1,000 NFTs (tokens #1 – #1,000)</li>
-                <li>Price: free / free mint</li>
-                <li>Ends automatically when the 1,000 are gone</li>
-                <li>Mint via AI Agent using the Free Mint Prompt</li>
+                <li>Phase 1A: #1 – #300, 0 BNB, max 3</li>
+                <li>Phase 1B: #301 – #1,000, 0.00015 BNB fee, max 3</li>
+                <li>Mint via AI Agent using the Free Mint / Fee Mint Prompt</li>
               </ul>
             </article>
             <article class="phase-card">
@@ -407,7 +407,7 @@
               <p>Opens after Phase 1 is complete. The remaining supply of 3,567 NFTs can be minted at a fixed price of 0.003 BNB per NFT until sold out.</p>
               <ul>
                 <li>Allocation: 3,567 NFTs (tokens #1,001 – #4,567)</li>
-                <li>Price: 0.003 BNB per NFT</li>
+                <li>Price: 0.003 BNB per NFT, max 5 per mint</li>
                 <li>Total payable = 0.003 × mint amount</li>
                 <li>Mint via AI Agent using the Paid Mint Prompt</li>
               </ul>
@@ -434,12 +434,12 @@
               <div class="step">
                 <span class="n">STEP 1</span>
                 <h3>Paste your wallet address</h3>
-                <p>Enter your BNB Chain wallet address in the field below. Both prompts will fill in automatically with that address.</p>
+                <p>Enter your BNB Chain wallet address in the field below. All prompts will fill in automatically with that address.</p>
               </div>
               <div class="step">
                 <span class="n">STEP 2</span>
                 <h3>Choose phase &amp; amount</h3>
-                <p>Phase 1 is for the free mint, Phase 2 is for the paid mint at 0.003 BNB. The amount you choose applies to the prompt you copy.</p>
+                <p>Phase 1A is free mint (#1–#300, max 3), Phase 1B is free mint with a 0.00015 BNB fee (#301–#1,000, max 3), Phase 2 is paid mint at 0.003 BNB (max 5). The amount you choose applies to the prompt you copy.</p>
               </div>
               <div class="step">
                 <span class="n">STEP 3</span>
@@ -457,11 +457,15 @@
                 <div class="phase-pick" role="group" aria-label="Choose mint phase">
                   <button type="button" id="pickFree" class="on">
                     <span class="t">Phase 1 · Free Mint</span>
-                    <span class="d">First 1,000 · 0 BNB</span>
+                    <span class="d">#1 – #300 · 0 BNB · max 3</span>
+                  </button>
+                  <button type="button" id="pickFee">
+                    <span class="t">Phase 1B · Fee Mint</span>
+                    <span class="d">#301 – #1,000 · 0.00015 BNB fee · max 3</span>
                   </button>
                   <button type="button" id="pickPaid">
                     <span class="t">Phase 2 · Paid Mint</span>
-                    <span class="d">After free sells out · 0.003 BNB</span>
+                    <span class="d">After free sells out · 0.003 BNB · max 5</span>
                   </button>
                 </div>
               </div>
@@ -485,6 +489,14 @@
                 </div>
                 <div class="prompt-body" id="freePrompt"></div>
                 <button type="button" class="copy-btn" id="copyFree">COPY PROMPT</button>
+              </article>
+              <article class="prompt-card">
+                <div class="prompt-head">
+                  <span class="t">PROMPT — FEE MINT</span>
+                  <span class="tag">PHASE 1B · 0.00015 BNB</span>
+                </div>
+                <div class="prompt-body" id="feePrompt"></div>
+                <button type="button" class="copy-btn" id="copyFee">COPY PROMPT</button>
               </article>
               <article class="prompt-card">
                 <div class="prompt-head">
@@ -513,7 +525,7 @@
           <div class="faq">
             <details>
               <summary>What is the total supply of Agent Framlin?</summary>
-              <div class="a">The total is 4,567 NFTs: 1,000 free mint NFTs in Phase 1 (tokens #1 – #1,000) and 3,567 paid mint NFTs in Phase 2 (tokens #1,001 – #4,567).</div>
+              <div class="a">The total is 4,567 NFTs: Phase 1 free mint 1,000 NFTs — #1–#300 at 0 BNB (max 3) and #301–#1,000 at a 0.00015 BNB fee (max 3) — and 3,567 paid mint NFTs in Phase 2 (tokens #1,001 – #4,567) at 0.003 BNB (max 5).</div>
             </details>
             <details>
               <summary>How do I mint?</summary>
@@ -521,11 +533,11 @@
             </details>
             <details>
               <summary>When does Phase 2 open and what does it cost?</summary>
-              <div class="a">Phase 2 opens after the 1,000 free mints in Phase 1 are gone. The price stays fixed at 0.003 BNB per NFT, so the total you pay is 0.003 BNB multiplied by the number of NFTs you mint, plus the network gas fee.</div>
+              <div class="a">Phase 2 opens after the 1,000 free mints in Phase 1 are gone. The price stays fixed at 0.003 BNB per NFT (max 5 per mint), so the total you pay is 0.003 BNB multiplied by the number of NFTs you mint, plus the network gas fee.</div>
             </details>
             <details>
               <summary>Is the free mint really free?</summary>
-              <div class="a">The NFT itself costs 0 BNB — you only pay the BNB Chain network gas fee for the transaction, just like any other on-chain transaction.</div>
+              <div class="a">The first 300 NFTs cost 0 BNB — you only pay the BNB Chain network gas fee. Tokens #301–#1,000 are still free NFTs, but with a 0.00015 BNB fee per NFT.</div>
             </details>
             <details>
               <summary>Is it safe to give the prompt to an AI Agent?</summary>
@@ -611,16 +623,18 @@
       grid.innerHTML = cards;
 
       /* ---------- Ticker ---------- */
-      var tick = "AGENT FRAMLIN ✦ SUPPLY 4,567 ✦ FREE MINT 1,000 ✦ PAID MINT 0.003 BNB ✦ MINT VIA AI AGENT ✦ ";
+      var tick = "AGENT FRAMLIN ✦ SUPPLY 4,567 ✦ FREE MINT 300 MAX 3 ✦ FEE MINT 0.00015 MAX 3 ✦ PAID MINT 0.003 BNB MAX 5 ✦ MINT VIA AI AGENT ✦ ";
       document.getElementById("tickerIn").textContent = tick + tick + tick + tick;
 
       /* ---------- Mint prompt logic ---------- */
       var CONTRACT = "[AGENT FRAMLIN CONTRACT ADDRESS]";
       var state = { phase: "free", amount: 1 };
+      var PHASE_MAX = { free: 3, fee: 3, paid: 5 };
       var walletInput = document.getElementById("walletInput");
       var amtVal = document.getElementById("amtVal");
       var totalLine = document.getElementById("totalLine");
       var freeEl = document.getElementById("freePrompt");
+      var feeEl = document.getElementById("feePrompt");
       var paidEl = document.getElementById("paidPrompt");
 
       function walletText() {
@@ -634,40 +648,53 @@
         var amt = state.amount;
         var addr = walletText();
         var total = fmtBNB(0.003 * amt);
+        var feeTotal = fmtBNB(0.00015 * amt);
         freeEl.textContent =
-          "Mint " + amt + " Agent Framlin NFT (free mint, Phase 1) on BNB Chain (chain ID 56). " +
+          "Mint " + amt + " Agent Framlin NFT (free mint, Phase 1A) on BNB Chain (chain ID 56). " +
           "Contract: " + CONTRACT + ". My wallet: " + addr + ". " +
-          "Call mintFree(" + amt + ") with a value of 0 BNB. " +
-          "This free mint phase covers the first 1,000 of the 4,567 total supply. " +
+          "Call mintFree(" + amt + ") with a value of 0 BNB. Max 3 per mint. " +
+          "This free mint phase covers the first 300 of the 4,567 total supply. " +
+          "Show me the full transaction details first and wait for my approval in my wallet before sending. " +
+          "Never ask for my seed phrase or private key.";
+        feeEl.textContent =
+          "Mint " + amt + " Agent Framlin NFT (free mint with fee, Phase 1B) on BNB Chain (chain ID 56). " +
+          "Contract: " + CONTRACT + ". My wallet: " + addr + ". " +
+          "Call mintFreeFee(" + amt + ") with a value of 0.00015 BNB x " + amt + " = " + feeTotal + " BNB. Max 3 per mint. " +
+          "This phase covers token #301 to #1,000 of the collection, after the first 300 free mints. " +
           "Show me the full transaction details first and wait for my approval in my wallet before sending. " +
           "Never ask for my seed phrase or private key.";
         paidEl.textContent =
           "Mint " + amt + " Agent Framlin NFT (paid mint, Phase 2) on BNB Chain (chain ID 56). " +
           "Contract: " + CONTRACT + ". My wallet: " + addr + ". " +
-          "Call mintPaid(" + amt + ") with a value of 0.003 BNB x " + amt + " = " + total + " BNB. " +
+          "Call mintPaid(" + amt + ") with a value of 0.003 BNB x " + amt + " = " + total + " BNB. Max 5 per mint. " +
           "This paid phase covers token #1,001 to #4,567 of the collection, after the 1,000 free mint phase. " +
           "Show me the full transaction details first and wait for my approval in my wallet before sending. " +
           "Never ask for my seed phrase or private key.";
         amtVal.textContent = amt;
         if (state.phase === "free") {
-          totalLine.textContent = "Selected phase: FREE MINT — total 0 BNB for " + amt + " NFT (network gas fee not included). Copy the Free Mint Prompt below.";
+          totalLine.textContent = "Selected phase: FREE MINT 1A — total 0 BNB for " + amt + " NFT (max 3, network gas fee not included). Copy the Free Mint Prompt below.";
+        } else if (state.phase === "fee") {
+          totalLine.textContent = "Selected phase: FEE MINT 1B — total 0.00015 BNB x " + amt + " = " + feeTotal + " BNB for " + amt + " NFT (max 3, network gas fee not included). Copy the Fee Mint Prompt below.";
         } else {
-          totalLine.textContent = "Selected phase: PAID MINT — total 0.003 BNB x " + amt + " = " + total + " BNB for " + amt + " NFT (network gas fee not included). Copy the Paid Mint Prompt below.";
+          totalLine.textContent = "Selected phase: PAID MINT — total 0.003 BNB x " + amt + " = " + total + " BNB for " + amt + " NFT (max 5, network gas fee not included). Copy the Paid Mint Prompt below.";
         }
       }
       function setPhase(p) {
         state.phase = p;
+        if (state.amount > PHASE_MAX[p]) { state.amount = PHASE_MAX[p]; }
         document.getElementById("pickFree").classList.toggle("on", p === "free");
+        document.getElementById("pickFee").classList.toggle("on", p === "fee");
         document.getElementById("pickPaid").classList.toggle("on", p === "paid");
         buildPrompts();
       }
       document.getElementById("pickFree").addEventListener("click", function () { setPhase("free"); });
+      document.getElementById("pickFee").addEventListener("click", function () { setPhase("fee"); });
       document.getElementById("pickPaid").addEventListener("click", function () { setPhase("paid"); });
       document.getElementById("amtMinus").addEventListener("click", function () {
         if (state.amount > 1) { state.amount--; buildPrompts(); }
       });
       document.getElementById("amtPlus").addEventListener("click", function () {
-        if (state.amount < 20) { state.amount++; buildPrompts(); }
+        if (state.amount < PHASE_MAX[state.phase]) { state.amount++; buildPrompts(); }
       });
       walletInput.addEventListener("input", buildPrompts);
       buildPrompts();
@@ -694,6 +721,7 @@
         }
       }
       document.getElementById("copyFree").addEventListener("click", function () { copyText(freeEl.textContent, this); });
+      document.getElementById("copyFee").addEventListener("click", function () { copyText(feeEl.textContent, this); });
       document.getElementById("copyPaid").addEventListener("click", function () { copyText(paidEl.textContent, this); });
     </script>
   </body>
