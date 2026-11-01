@@ -670,7 +670,7 @@
         return v ? v : "[PASTE YOUR WALLET ADDRESS]";
       }
       function fmtBNB(n) {
-        return (Math.round(n * 10000) / 10000).toString();
+        return (Math.round(n * 100000) / 100000).toString();
       }
       function buildPrompts() {
         var amt = state.amount;
