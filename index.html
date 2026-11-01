@@ -530,7 +530,7 @@
             </div>
 
             <p class="agent-note">
-              <b>Note:</b> the contract address in the prompts, marked <span class="mono">[AGENT FRAMLIN CONTRACT ADDRESS]</span>, will be officially announced when mint opens — replace that marker with the official contract address before sending the prompt to your agent.
+              <b>Note:</b> the contract address in the prompts, marked <span class="mono">0x83F98B74a46C3495f76010D4eD39dd951C26E571</span>, will be officially announced when mint opens — replace that marker with the official contract address before sending the prompt to your agent.
               <b>Payments:</b> the 0.00015 BNB fee mint and 0.003 BNB paid mint payments are sent to the contract itself and stay there until the owner withdraws them. There is no treasury address.
               <b>Never</b> share your seed phrase or private key with anyone, including an AI Agent. A legitimate agent only ever asks you to approve the transaction in your wallet.
             </p>
@@ -654,7 +654,7 @@
       document.getElementById("tickerIn").textContent = tick + tick + tick + tick;
 
       /* ---------- Mint prompt logic ---------- */
-      var CONTRACT = "[AGENT FRAMLIN CONTRACT ADDRESS]";
+      var CONTRACT = "0x83F98B74a46C3495f76010D4eD39dd951C26E571";
       var state = { phase: "free", amount: 1 };
       var PHASE_MAX = { free: 3, fee: 3, paid: 5 };
       var walletInput = document.getElementById("walletInput");
