@@ -16,6 +16,10 @@
       "value": "0.003 BNB"
     },
     {
+      "trait_type": "Max Mint",
+      "value": "5 per mint"
+    },
+    {
       "trait_type": "Body",
       "value": "#F2B705"
     },
