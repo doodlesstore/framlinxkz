@@ -9,11 +9,15 @@
     },
     {
       "trait_type": "Phase",
-      "value": "Phase 1 - Free Mint"
+      "value": "Phase 1A - Free Mint"
     },
     {
       "trait_type": "Price",
       "value": "0 BNB (free mint)"
+    },
+    {
+      "trait_type": "Max Mint",
+      "value": "3 per mint"
     },
     {
       "trait_type": "Body",
